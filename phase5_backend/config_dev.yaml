@@ -1,0 +1,62 @@
+project:
+  name: "cancelable_fp_backend"
+  seed: 42
+  device: "cpu"
+
+host: "0.0.0.0"
+port: 8000
+workers: 1
+timeout: 30
+keepalive: 5
+
+tls:
+  enabled: false
+
+database:
+  url: "sqlite+aiosqlite:///./storage/backend.sqlite"
+  pool_size: 20
+  max_overflow: 10
+  pool_timeout: 30
+  echo: false
+
+redis:
+  url: "redis://localhost:6379/0"
+  max_connections: 50
+
+rate_limit:
+  enroll_per_minute: 100
+  verify_per_minute: 200
+  challenge_per_minute: 300
+  burst_multiplier: 5
+
+session:
+  token_ttl_seconds: 3600
+  refresh_ttl_seconds: 86400
+  issuer: "cancelable-bio-auth"
+  audience: "bioauth-client"
+
+he:
+  key_dir: "./exports/he_keys"
+
+keystore:
+  storage_dir: "./keystore_data"
+  master_key_env: "KEYSTORE_MASTER_KEY"
+
+audit:
+  enabled: true
+  log_file: "./logs/audit.log"
+  max_size_mb: 100
+  backup_count: 10
+  hash_chain: true
+
+pii:
+  filter_logs: true
+  redact_fields:
+    - "template"
+    - "ciphertext"
+    - "key_vector"
+    - "seed"
+    - "biometric"
+    - "fingerprint"
+  redact_patterns:
+    - "BEGIN.*KEY"

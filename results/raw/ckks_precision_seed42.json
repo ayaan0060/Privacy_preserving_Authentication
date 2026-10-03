@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "plain_eer": 3.2,
+  "ckks_eer": 3.2,
+  "abs_error_mean": 6.861800619547553e-07,
+  "abs_error_std": 8.82884856501913e-08,
+  "abs_error_max": 9.652688350847427e-07,
+  "t_stat": -245.65000152488213,
+  "p_value": 0.0,
+  "tost_bound": 0.0001,
+  "tost_p_value": 0.0
+}

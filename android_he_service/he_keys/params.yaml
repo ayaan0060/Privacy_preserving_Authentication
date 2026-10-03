@@ -1,0 +1,9 @@
+coeff_mod_bit_sizes:
+- 60
+- 40
+- 40
+- 60
+poly_modulus_degree: 8192
+scale_bits: 40
+security_level: 128
+std_dev: 3.2

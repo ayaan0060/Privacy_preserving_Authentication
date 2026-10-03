@@ -1,0 +1,35 @@
+# phase4_he/config.yaml
+project:
+  name: "cancelable_fp_he"
+  seed: 42
+  device: "cpu"
+
+he:
+  # CKKS Parameters (CRITICAL - justified in params.py)
+  poly_modulus_degree: 8192     # 8192 or 16384 — determines max slots, security
+  coeff_mod_bit_sizes: [60, 40, 40, 60]  # Chain: 60 (first) + 40*2 (mult) + 60 (last)
+  # Total bits = 200 → ~128-bit security for N=8192
+  # Multiplicative depth = 2 (one mult + rotations for dot product)
+  scale_bits: 40                # Precision bits (2^40 ≈ 1e12)
+  
+  # Security
+  security_level: 128           # Target bits of security
+  std_dev: 3.2                  # Error distribution std dev
+  
+  # Encoding
+  slots: 4096                   # N/2 = 8192/2 = 4096 complex slots (we use 256 real)
+  embedding_dim: 256            # Must match Phase 1/2/3
+  
+  # Keys
+  key_dir: "./exports/he_keys"
+  client_secret_key: "client_secret.key"
+  client_public_key: "client_public.key"
+  server_public_key: "server_public.key"
+  galois_keys: "galois.keys"    # For rotations
+  relin_keys: "relin.keys"      # For relinearization
+  
+  # Benchmarking
+  benchmark:
+    num_runs: 100
+    warmup_runs: 10
+    report_path: "./exports/benchmark_report.json"

@@ -1,0 +1,47 @@
+# phase6_tee/config.yaml
+project:
+  name: "cancelable_fp_tee"
+  seed: 42
+  device: "cpu"
+
+tee:
+  backend: "simulation"         # "simulation" | "android_keystore" | "ios_secure_enclave" | "optee"
+  
+  # Simulation settings
+  simulation:
+    use_mlock: true             # Attempt mlock() on secret buffers
+    zeroize_on_release: true    # Explicit memset after use
+    simulate_hardware_rng: true # Use /dev/urandom
+  
+  # Key Release Protocol
+  key_release:
+    similarity_threshold: 0.3   # Cosine threshold for release
+    nonce_ttl_seconds: 300      # Nonce validity
+    signature_algorithm: "ES256" # ECDSA P-256
+    include_timestamp: true     # Include timestamp in signed payload
+  
+  # Device Keys
+  device_keys:
+    key_dir: "./exports/device_keys"
+    key_size: 256               # P-256
+    rotation_interval_days: 90  # Device key rotation
+  
+  # Production Integration
+  production:
+    android:
+      use_strongbox: true       # Require StrongBox (hardware-backed)
+      key_alias_prefix: "bioauth_"
+      attestation_required: true
+    ios:
+      use_secure_enclave: true
+      access_control: "biometryCurrentSet"
+      key_tag_prefix: "com.cancelablebio.auth."
+    optee:
+      ta_uuid: "12345678-1234-1234-1234-123456789abc"
+      shared_memory_size: 65536
+
+he:
+  key_dir: "./exports/he_keys"
+
+backend:
+  url: "https://localhost:8443"

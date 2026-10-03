@@ -1,0 +1,75 @@
+# phase5_backend/config.yaml
+project:
+  name: "cancelable_fp_backend"
+  seed: 42
+  device: "cpu"
+
+backend:
+  host: "0.0.0.0"
+  port: 8443
+  workers: 4
+  timeout: 30
+  keepalive: 5
+  
+  # TLS (REQUIRED - no HTTP in production)
+  tls:
+    enabled: true
+    cert_file: "./certs/server.crt"
+    key_file: "./certs/server.key"
+    ca_file: "./certs/ca.crt"          # For mTLS (optional)
+    client_verify: false               # Set true for mTLS
+    min_version: "TLSv1.3"
+    ciphers: "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256"
+  
+  # Database
+  database:
+    url: "sqlite+aiosqlite:///./storage/backend.sqlite"
+    pool_size: 20
+    max_overflow: 10
+    pool_timeout: 30
+    echo: false
+  
+  # Redis
+  redis:
+    url: "redis://localhost:6379/0"
+    max_connections: 50
+  
+  # Rate limiting
+  rate_limit:
+    enroll_per_minute: 5
+    verify_per_minute: 30
+    challenge_per_minute: 60
+    burst_multiplier: 2
+  
+  # Session
+  session:
+    token_ttl_seconds: 3600
+    refresh_ttl_seconds: 86400
+    issuer: "cancelable-bio-auth"
+    audience: "bioauth-client"
+
+he:
+  key_dir: "./exports/he_keys"
+
+keystore:
+  storage_dir: "./keystore_data"
+  master_key_env: "KEYSTORE_MASTER_KEY"
+
+audit:
+  enabled: true
+  log_file: "./logs/audit.log"
+  max_size_mb: 100
+  backup_count: 10
+  hash_chain: true
+
+pii:
+  filter_logs: true
+  redact_fields:
+    - "template"
+    - "ciphertext"
+    - "key_vector"
+    - "seed"
+    - "biometric"
+    - "fingerprint"
+  redact_patterns:
+    - "BEGIN.*KEY"

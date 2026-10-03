@@ -1,0 +1,59 @@
+# phase3_fusion/config.yaml
+project:
+  name: "cancelable_fp_fusion"
+  seed: 42
+  device: "cuda"
+
+# --- Phase 1 & 2 Artifact Paths (MUST EXIST) ---
+paths:
+  phase1_encoder_ckpt: "../phase1_encoder/outputs/phase1/checkpoints/best.ckpt"
+  phase1_config: "../phase1_encoder/config.yaml"
+  phase2_config: "../phase2_keymgmt/config.yaml"
+  phase2_master_key_env: "CANCELABLE_BIO_MASTER_KEY" # For Key Derivation during training
+  output_dir: "outputs/phase3"
+  log_dir: "logs/phase3"
+
+# --- FiLM Architecture ---
+film:
+  # Input: x (256), k (256)
+  # Gamma MLP: Predicts scale (gamma) per channel. 
+  # Beta MLP:  Predicts shift (beta) per channel.
+  # Output: gamma (256), beta (256) -> t = gamma * x + beta -> L2Norm
+  generator_hidden: [512, 512]     # Hidden layers for MLPs
+  activation: "gelu"               # GELU works well for modulation prediction
+  output_activation_gamma: "softplus" # gamma > 0 preferred for stability (scale)
+  output_activation_beta: "tanh"      # beta bounded [-1, 1] (shift)
+  dropout: 0.1
+  
+  # Training Strategy
+  training_mode: "frozen"          
+
+# --- Training ---
+training:
+  batch_size: 256                 # P*K Sampler (Identities * Samples)
+  pk_sampler:
+    p: 32
+    k: 8
+  epochs: 50
+  lr_film: 1e-3
+  lr_encoder_finetune: 1e-5       # Only used if training_mode == "joint"
+  weight_decay: 1e-4
+  scheduler: "cosine"
+  warmup_epochs: 5
+  num_workers: 8
+  amp: true
+  
+  # Loss Weights
+  loss:
+    arcface_weight: 1.0
+    gamma_reg_weight: 0.01        # L2(gamma - 1)
+    beta_reg_weight: 0.01         # L2(beta)
+
+# --- Evaluation ---
+evaluation:
+  fvc_root: "../phase1_encoder/data/FVC2004/DB1_B"
+  unlinkability_trials: 1000
+
+# --- Export ---
+export:
+  onnx_opset: 17

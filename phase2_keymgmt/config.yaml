@@ -1,0 +1,18 @@
+# phase2_keymgmt/config.yaml
+# --- Keystore ---
+keystore:
+  backend: "software"           # "software" | "android_keystore" | "ios_secure_enclave" | "hsm_pkcs11"
+  storage_dir: "./keystore_data" # Software backend: encrypted filesystem directory
+  key_size_bytes: 32            # Seed size (256 bits)
+  hkdf:
+    algorithm: "SHA256"
+    key_vector_length: 256      # Output dimension (matches encoder embedding_dim)
+    info_prefix: "cancelable-bio-auth/v1"  # Domain separation
+    rescale_range: [-1.0, 1.0]  # Match encoder L2-normalized range
+  rotation:
+    max_versions_per_user: 10   # Retain last N versions for audit
+    grace_period_hours: 24      # Overlap window for in-flight verifications
+  software:
+    use_mlock: true             # Attempt mlock() on secret buffers (Linux)
+    zeroize_on_delete: true     # Explicit memset before free
+    iterations: 100000          # PBKDF2 iterations for storage encryption

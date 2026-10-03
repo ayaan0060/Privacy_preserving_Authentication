@@ -1,0 +1,62 @@
+# phase5_backend/docker/docker-compose.yml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: bioauth
+      POSTGRES_USER: bioauth
+      POSTGRES_PASSWORD: securepass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bioauth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      CONFIG_PATH: /app/config.yaml
+      KEYSTORE_MASTER_KEY: "your-32-byte-hex-master-key-here"
+      DATABASE_URL: "postgresql+asyncpg://bioauth:securepass@postgres:5432/bioauth"
+      REDIS_URL: "redis://redis:6379/0"
+    ports:
+      - "8443:8443"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./exports/he_keys:/app/exports/he_keys:ro
+      - ./keystore_data:/app/keystore_data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('https://localhost:8443/ready', verify=False, timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+  redis_data:

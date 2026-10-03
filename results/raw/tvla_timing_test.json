@@ -1,0 +1,10 @@
+{
+  "trials_per_group": 1000,
+  "group_a_mean_ms": 13.416444691,
+  "group_a_std_ms": 0.3723919010184345,
+  "group_b_mean_ms": 13.376501743,
+  "group_b_std_ms": 0.11716623085151694,
+  "welch_t_stat": 3.2338894518418853,
+  "p_value": 0.001254578969146015,
+  "leaks_timing": false
+}

@@ -1,0 +1,98 @@
+# phase7_integration/config.yaml — MASTER CONFIGURATION
+# ============================================================
+# This file merges ALL phase configurations.
+# Phase-specific sections are namespaced.
+# ============================================================
+
+# --- Global ---
+project:
+  name: "cancelable-bio-auth"
+  version: "1.0.0"
+  environment: "development"
+
+# --- Phase 1: CNN Encoder ---
+encoder:
+  model_path: "./exports/encoder.onnx"
+  embedding_dim: 256
+  img_size: [96, 96]
+  preprocessing:
+    clahe_clip_limit: 2.0
+    clahe_tile_grid: [8, 8]
+    roi_margin: 0.1
+
+# --- Phase 2: Keystore ---
+keystore:
+  backend: "software"
+  storage_dir: "./keystore_data"
+  master_key_env: "KEYSTORE_MASTER_KEY"
+  key_size_bytes: 32
+  hkdf:
+    algorithm: "SHA256"
+    key_vector_length: 256
+    info_prefix: "cancelable-bio-auth/v1"
+    rescale_range: [-1.0, 1.0]
+  rotation:
+    max_versions_per_user: 10
+    grace_period_hours: 24
+
+# --- Phase 3: FiLM Fusion ---
+film:
+  model_path: "./exports/film.onnx"
+  embedding_dim: 256
+  gamma_hidden: [256, 256]
+  beta_hidden: [256, 256]
+  activation: "gelu"
+  dropout: 0.1
+  use_layer_norm: true
+
+# --- Phase 4: Homomorphic Encryption ---
+he:
+  key_dir: "./exports/he_keys"
+  poly_modulus_degree: 8192
+  coeff_mod_bit_sizes: [60, 40, 40, 60]
+  scale_bits: 40
+  security_level: 128
+
+# --- Phase 5: Backend Server ---
+backend:
+  host: "0.0.0.0"
+  port: 8443
+  workers: 4
+  tls:
+    enabled: true
+    cert_file: "./certs/server.crt"
+    key_file: "./certs/server.key"
+  database:
+    url: "postgresql+asyncpg://bioauth:securepass@localhost:5432/bioauth"
+  redis:
+    url: "redis://localhost:6379/0"
+  rate_limit:
+    enroll_per_minute: 5
+    verify_per_minute: 30
+    challenge_per_minute: 60
+  session:
+    token_ttl_seconds: 3600
+    issuer: "cancelable-bio-auth"
+
+# --- Phase 6: TEE / Secure Context ---
+tee:
+  backend: "simulation"
+  device_keys_dir: "./exports/device_keys"
+  key_release:
+    similarity_threshold: 0.3
+    nonce_ttl_seconds: 300
+    signature_algorithm: "ES256"
+
+# --- Benchmarking ---
+benchmark:
+  num_runs: 100
+  warmup_runs: 10
+  concurrent_users: [1, 10, 50, 100]
+  report_path: "./exports/benchmark_report.json"
+
+# --- Adversarial Testing ---
+adversarial:
+  enabled: true
+  replay_attempts: 1000
+  inversion_iterations: 10000
+  timing_samples: 10000

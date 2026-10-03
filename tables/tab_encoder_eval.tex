@@ -1,0 +1,16 @@
+\begin{tabular}{lccccccc}
+\toprule
+& \multicolumn{5}{c}{\textbf{Stolen-Key Matching Mode}} & \multicolumn{2}{c}{\textbf{Legitimate-Key Matching Mode}} \\
+\cmidrule(lr){2-6} \cmidrule(lr){7-8}
+\textbf{Protection Scheme} & \textbf{EER (\%)} & \textbf{TAR@1\%} & \textbf{TAR@0.1\%} & \textbf{Rank-1} & \textbf{$d'$} & \textbf{EER (\%)} & \textbf{$d'$} \\
+\midrule
+Plaintext ArcFace ResNet-18 & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 2.89\% & 3.05 \\
+\textbf{Random Orthogonal Projection (Adopted)} & \textbf{2.89\%} & 94.58\% & 79.46\% & \textbf{69.22\%} & 3.05 & \textbf{0.00\%} & 20.92 \\
+Random Bipolar Sign Flips & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 0.00\% & 15.28 \\
+Sign Flips + Permutation & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 0.00\% & 20.91 \\
+FiLM Modulation (No Signs) & 3.00\% & 94.74\% & 76.60\% & 69.36\% & 3.01 & 0.40\% & 4.64 \\
+Bipolar FiLM Modulation & 2.95\% & 94.50\% & 77.04\% & 69.36\% & 3.02 & 0.00\% & 15.50 \\
+BioHashing ($M=256$) & 4.26\% & 88.26\% & 62.04\% & 54.37\% & 3.47 & 0.00\% & 13.74 \\
+Index-of-Max Hashing ($K=64, M=8$) & 5.46\% & 82.08\% & 58.26\% & 46.29\% & 3.34 & 0.00\% & 11.53 \\
+\bottomrule
+\end{tabular}

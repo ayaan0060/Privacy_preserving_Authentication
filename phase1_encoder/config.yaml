@@ -1,0 +1,77 @@
+seed: 42
+device: "cuda"  # "cuda" | "mps" | "cpu"
+
+# --- Data ---
+data:
+  root_dir: "./data/raw"
+  processed_dir: "./data/processed"
+  dataset: "SOCOFing"           # "SOCOFing" | "FVC2004"
+  img_size: [96, 96]            # [H, W] — 96x96 for mobile, 224x224 for server
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  num_workers: 8
+  pin_memory: true
+
+# --- Preprocessing ---
+preprocess:
+  clahe_clip_limit: 2.0
+  clahe_tile_grid: [8, 8]
+  roi_margin: 0.1               # Fraction of min(H,W) to crop from edges
+
+# --- Model ---
+model:
+  backbone: "resnet18"
+  embedding_dim: 256
+  dropout: 0.1
+  norm_embeddings: true         # L2 normalize output
+
+# --- ArcFace Loss ---
+loss:
+  type: "arcface"
+  margin: 0.5                   # Radians (≈28.6°)
+  scale: 64.0
+  margin_schedule: null         # e.g., "cosine_anneal" or null for fixed
+
+# --- Training ---
+train:
+  batch_size: 128
+  epochs: 100
+  lr: 0.001
+  weight_decay: 5e-4
+  optimizer: "adamw"
+  scheduler: "cosine_warm_restarts"
+  warmup_epochs: 5
+  amp: true                     # Automatic Mixed Precision
+  grad_clip: 1.0
+  hard_negative_mining: true
+  mining_strategy: "semi_hard"  # "semi_hard" | "hardest"
+  checkpoint_dir: "./checkpoints"
+  save_every: 5                 # Epochs
+  log_every: 50                 # Steps
+
+# --- Augmentation ---
+augment:
+  rotation_degrees: 15
+  elastic_alpha: 34.0
+  elastic_sigma: 4.0
+  cutout_prob: 0.3
+  cutout_size: 16
+  brightness_contrast_prob: 0.2
+
+# --- Evaluation ---
+eval:
+  batch_size: 256
+  eer_threshold_steps: 1000
+  plot_roc: true
+  plot_det: true
+
+# --- Export ---
+export:
+  onnx_path: "./exports/encoder.onnx"
+  tflite_path: "./exports/encoder.tflite"
+  tflite_quantize: "int8"       # "fp32" | "int8" | "fp16"
+  coreml_path: "./exports/encoder.mlpackage"
+  coreml_precision: "fp16"
+  opset_version: 17
+  dynamic_batch: true

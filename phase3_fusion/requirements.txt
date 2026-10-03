@@ -1,0 +1,17 @@
+# Core
+torch==2.3.0
+torchvision==0.18.0
+pytorch-lightning==2.3.0
+numpy==1.26.4
+pyyaml==6.0.1
+tqdm==4.66.4
+scikit-learn==1.4.2
+scipy==1.13.0
+matplotlib==3.8.4
+
+# Export
+onnx==1.16.1
+onnxruntime==1.18.0
+
+# Test
+pytest==8.1.1

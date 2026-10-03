@@ -1,0 +1,62 @@
+[
+  {
+    "concurrent_clients": 10,
+    "think_time_s": 1.25,
+    "throughput_req_per_s": 7.66,
+    "expected_throughput_littles_law": 7.68,
+    "littles_law_discrepancy_percent": 0.199,
+    "mean_latency_ms": 52.69,
+    "p50_latency_ms": 36.88,
+    "p95_latency_ms": 157.01,
+    "p99_latency_ms": 234.29,
+    "cpu_utilization_percent": 5.1
+  },
+  {
+    "concurrent_clients": 25,
+    "think_time_s": 1.25,
+    "throughput_req_per_s": 18.66,
+    "expected_throughput_littles_law": 19.17,
+    "littles_law_discrepancy_percent": 2.665,
+    "mean_latency_ms": 54.35,
+    "p50_latency_ms": 38.68,
+    "p95_latency_ms": 160.63,
+    "p99_latency_ms": 258.08,
+    "cpu_utilization_percent": 12.6
+  },
+  {
+    "concurrent_clients": 50,
+    "think_time_s": 1.25,
+    "throughput_req_per_s": 39.24,
+    "expected_throughput_littles_law": 38.23,
+    "littles_law_discrepancy_percent": 2.631,
+    "mean_latency_ms": 57.86,
+    "p50_latency_ms": 39.6,
+    "p95_latency_ms": 175.79,
+    "p99_latency_ms": 260.87,
+    "cpu_utilization_percent": 27.4
+  },
+  {
+    "concurrent_clients": 100,
+    "think_time_s": 1.25,
+    "throughput_req_per_s": 77.2,
+    "expected_throughput_littles_law": 75.77,
+    "littles_law_discrepancy_percent": 1.887,
+    "mean_latency_ms": 69.79,
+    "p50_latency_ms": 45.89,
+    "p95_latency_ms": 206.95,
+    "p99_latency_ms": 464.86,
+    "cpu_utilization_percent": 57.7
+  },
+  {
+    "concurrent_clients": 200,
+    "think_time_s": 1.25,
+    "throughput_req_per_s": 120.35,
+    "expected_throughput_littles_law": 117.51,
+    "littles_law_discrepancy_percent": 2.415,
+    "mean_latency_ms": 451.96,
+    "p50_latency_ms": 417.64,
+    "p95_latency_ms": 739.9,
+    "p99_latency_ms": 1393.37,
+    "cpu_utilization_percent": 98.5
+  }
+]

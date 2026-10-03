@@ -1,0 +1,162 @@
+{
+  "timestamp": "2026-08-16T18:38:24.633861+00:00",
+  "system": "cancelable-bio-auth",
+  "version": "1.0.0",
+  "environment": "development",
+  "benchmarks": {
+    "latency": {
+      "total_mean_ms": 256.594410383841,
+      "bottleneck": "Full Verification",
+      "phases": [
+        {
+          "phase": "Preprocessing",
+          "mean_ms": 0.7816117245238274,
+          "median_ms": 0.7780410232953727,
+          "stdev_ms": 0.03808041879207483,
+          "p95_ms": 0.8458461263217032,
+          "p99_ms": 0.8615022106096151
+        },
+        {
+          "phase": "Encoder Inference",
+          "mean_ms": 0.012059963773936033,
+          "median_ms": 0.011854572221636772,
+          "stdev_ms": 0.0011650337600754362,
+          "p95_ms": 0.012919079745188355,
+          "p99_ms": 0.018888748018071062
+        },
+        {
+          "phase": "Keystore Key Retrieval",
+          "mean_ms": 59.63338456815109,
+          "median_ms": 59.81545796385035,
+          "stdev_ms": 0.7092201896637911,
+          "p95_ms": 60.551211959682405,
+          "p99_ms": 60.72932333801874
+        },
+        {
+          "phase": "FiLM Fusion",
+          "mean_ms": 0.07553211064077914,
+          "median_ms": 0.07516646292060614,
+          "stdev_ms": 0.001061083138002962,
+          "p95_ms": 0.07755559054203331,
+          "p99_ms": 0.0797159771900624
+        },
+        {
+          "phase": "HE Encryption (Client)",
+          "mean_ms": 5.225562029518187,
+          "median_ms": 5.199229519348592,
+          "stdev_ms": 0.1728197215508062,
+          "p95_ms": 5.450770154129714,
+          "p99_ms": 5.509326258907095
+        },
+        {
+          "phase": "HE Compute (Server)",
+          "mean_ms": 14.836164980661124,
+          "median_ms": 14.827645500190556,
+          "stdev_ms": 0.03705027452750369,
+          "p95_ms": 14.882027037674561,
+          "p99_ms": 14.970572136808187
+        },
+        {
+          "phase": "HE Decryption (Client)",
+          "mean_ms": 1.2001750129275024,
+          "median_ms": 1.1647710343822837,
+          "stdev_ms": 0.08079749580807832,
+          "p95_ms": 1.3605500455014408,
+          "p99_ms": 1.5192254609428348
+        },
+        {
+          "phase": "TEE Key Release",
+          "mean_ms": 174.82991999364458,
+          "median_ms": 174.62147900369018,
+          "stdev_ms": 1.1276115141516778,
+          "p95_ms": 175.7961964874994,
+          "p99_ms": 179.5059194392525
+        },
+        {
+          "phase": "Full Enrollment",
+          "mean_ms": 135.4010871006176,
+          "median_ms": 130.84622949827462,
+          "stdev_ms": 19.240114819338643,
+          "p95_ms": 145.9322160400916,
+          "p99_ms": 261.1420593166259
+        },
+        {
+          "phase": "Full Verification",
+          "mean_ms": 255.95852832659148,
+          "median_ms": 255.55702100973576,
+          "stdev_ms": 2.552390700029024,
+          "p95_ms": 257.3800274753012,
+          "p99_ms": 269.8870752984658
+        }
+      ]
+    },
+    "throughput": [
+      {
+        "concurrent_users": 1,
+        "requests_per_sec": 3.891206471134297,
+        "mean_latency_ms": 256.6585791995749,
+        "p95_latency_ms": 261.45325810066424,
+        "p99_latency_ms": 264.5940179459285,
+        "error_rate": 0.0
+      },
+      {
+        "concurrent_users": 5,
+        "requests_per_sec": 3.9026558341649444,
+        "mean_latency_ms": 255.9577173856087,
+        "p95_latency_ms": 257.97405381454155,
+        "p99_latency_ms": 259.44741758867167,
+        "error_rate": 0.0
+      },
+      {
+        "concurrent_users": 10,
+        "requests_per_sec": 3.889393927484712,
+        "mean_latency_ms": 256.8194729136303,
+        "p95_latency_ms": 261.7214944504667,
+        "p99_latency_ms": 262.9759774473496,
+        "error_rate": 0.0
+      },
+      {
+        "concurrent_users": 25,
+        "requests_per_sec": 3.8956565229540163,
+        "mean_latency_ms": 256.40885134227574,
+        "p95_latency_ms": 260.22418326465413,
+        "p99_latency_ms": 262.9953050427139,
+        "error_rate": 0.0
+      },
+      {
+        "concurrent_users": 50,
+        "requests_per_sec": 3.8985457058853874,
+        "mean_latency_ms": 256.2229249961674,
+        "p95_latency_ms": 259.5768226601649,
+        "p99_latency_ms": 261.44877417827956,
+        "error_rate": 0.0
+      },
+      {
+        "concurrent_users": 100,
+        "requests_per_sec": 3.8969833636412763,
+        "mean_latency_ms": 256.3256813765038,
+        "p95_latency_ms": 259.9343163718004,
+        "p99_latency_ms": 263.44193498953246,
+        "error_rate": 0.0
+      }
+    ],
+    "he_accuracy": {
+      "note": "See Phase 4 benchmark_report.json for CKKS numerical accuracy"
+    },
+    "adversarial": {
+      "replay_protection": "PASS (tested in test_replay_protection.py)",
+      "rotation_invalidation": "PASS (tested in test_rotation_invalidation.py)",
+      "template_inversion": "PASS (tested in test_inversion.py)",
+      "side_channel": "BASIC PASS (tested in test_side_channel.py)",
+      "model_extraction": "PASS (tested in test_model_extraction.py)"
+    },
+    "system": {
+      "phases_integrated": 6,
+      "encoder": "ResNet18 (ONNX)",
+      "film": "FiLM Fusion (ONNX)",
+      "he": "CKKS (TenSEAL, N=8192)",
+      "tee": "Software Simulation",
+      "backend": "FastAPI + PostgreSQL + Redis"
+    }
+  }
+}

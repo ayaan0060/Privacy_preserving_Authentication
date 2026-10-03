@@ -1,0 +1,24 @@
+{
+  "ciphertext_sizes": {
+    "probe_ciphertext": {
+      "raw_bytes": 331018,
+      "raw_kb": 323.26,
+      "zlib_bytes": 330034,
+      "gzip_bytes": 330046
+    },
+    "result_ciphertext": {
+      "raw_bytes": 235124,
+      "raw_kb": 229.61,
+      "zlib_bytes": 234130,
+      "gzip_bytes": 234142
+    }
+  },
+  "cellular_model": {
+    "bandwidth_uplink_mbps": 15.0,
+    "bandwidth_downlink_mbps": 40.0,
+    "radio_rtt_ms": 40.0,
+    "uplink_transmission_ms": 196.54,
+    "downlink_transmission_ms": 67.02,
+    "total_cellular_network_ms": 263.57
+  }
+}
