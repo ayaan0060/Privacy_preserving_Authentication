@@ -1,3 +1,6 @@
+> ⚠️ **HISTORICAL DOCUMENT — DO NOT USE AS GROUND TRUTH**
+> This provenance record documents an earlier experimental run and has been superseded by the final results in `results/final/metrics.json` and `results/final/macros.tex`. All quantitative values in the paper derive exclusively from the current `results/final/macros.tex`.
+
 # Results Provenance Matrix (Single Source of Truth)
 
 This document provides a strict, verifiable mapping between every quantitative macro generated in `results/final/macros.tex` (and utilized in `paper.tex` and `Research.tex`), the underlying execution script, raw output artifact in `results/final/`, random seeds, and evaluation configurations.
@@ -12,39 +15,41 @@ make reproduce && make verify
 ## 1. Headline Accuracy, Verification, and Representation Schemes
 
 - **Master Output File:** `results/final/metrics.json`
-- **Raw Array Artifacts:** `results/final/verification_arrays.npz`
-- **Generating Script:** `scripts/run_all_experiments.py` (Step 2: `run_verification_eval`)
+- **Protocol Results:** `results/final/protocol_results.json`
+- **Raw Array Artifacts:** `results/raw/*_proto{all,easy}_seed*.npz`
+- **Generating Script:** `scripts/run_protocol_experiments.py` and `scripts/run_all_experiments.py`
 - **Evaluation Set:** Held-out SOCOFing test split (90 subjects, 900 unique identities, 8,227 images: 900 real, 2,687 easy, 2,551 medium, 2,089 hard).
-- **Pair Protocol:** 10,000 pairs (5,000 mated genuine, 5,000 non-mated impostor). Seeds: 42, 123, 456.
+- **Pair Protocols:**
+  - **ALL (Headline):** 14,654 pairs (7,327 genuine [2,687 easy, 2,551 medium, 2,089 hard] and 7,327 impostors). Evaluated across seeds 42, 123, 456.
+  - **EASY (Secondary):** 5,374 pairs (2,687 easy genuine and 2,687 impostors). Evaluated across seeds 42, 123, 456.
 
 | Macro | Value in Paper | Source Field in `metrics.json` | Provenance / Methodology |
 | :--- | :--- | :--- | :--- |
-| `\HeadlineEER` | $2.89\%$ | `verification.headline_eer` | Single-seed canonical EER on held-out test split |
-| `\HeadlineEERCILow` | $2.57\%$ | `verification.headline_eer_ci_lower` | 1,000-iteration non-parametric bootstrap 95% CI lower bound |
-| `\HeadlineEERCIHigh` | $3.24\%$ | `verification.headline_eer_ci_upper` | 1,000-iteration non-parametric bootstrap 95% CI upper bound |
-| `\MultiSeedEER` | $2.96\% \pm 0.05\%$ | Multi-seed evaluation | Mean $\pm$ std across seeds 42, 123, and 456 |
-| `\OperatingThresholdTau` | $0.9218$ | `verification.tau_threshold` | Operating threshold selected at validation EER |
-| `\NominalTestFAR` | $2.88\%$ | `verification.nominal_test_far` | Empirical FAR evaluated on nominal test set at $\tau$ |
-| `\NominalTestFRR` | $2.90\%$ | `verification.nominal_test_frr` | Empirical FRR evaluated on nominal test set at $\tau$ |
+| `\HeadlineEER` | $9.90\%$ | `verification.all_alteration.eer_percent` | Headline EER averaged across seeds 42, 123, 456 under ALL protocol |
+| `\HeadlineEERStd` | $0.24\%$ | `verification.all_alteration.eer_std` | Standard deviation across 3 seeds on held-out test identities |
+| `\HeadlineEERCILow` | $9.66\%$ | `verification.all_alteration.eer_ci_lower` | 1,000-iteration non-parametric bootstrap 95% CI lower bound (seed 42) |
+| `\HeadlineEERCIHigh` | $10.65\%$ | `verification.all_alteration.eer_ci_upper` | 1,000-iteration non-parametric bootstrap 95% CI upper bound (seed 42) |
+| `\AllAlterationSingleSeedEER` | $10.17\%$ | `verification.all_alteration.single_seed_eer` | Single-seed canonical EER on seed 42 under ALL protocol |
+| `\AllAlterationFAR` | $10.17\%$ | `verification.all_alteration.far_at_tau` | FAR at canonical threshold $\tau = 0.8910$ on seed 42 |
+| `\AllAlterationFRR` | $10.17\%$ | `verification.all_alteration.frr_at_tau` | FRR at canonical threshold $\tau = 0.8910$ on seed 42 |
+| `\AllAlterationDPrime` | $2.41$ | `verification.all_alteration.d_prime` | Decidability index under ALL protocol |
+| `\AllAlterationTAROne` | $71.72\%$ | `verification.all_alteration.tar_at_far_1pct` | TAR at 1.0% FAR on seed 42 under ALL protocol |
+| `\AllAlterationTARZeroOne` | $54.02\%$ | `verification.all_alteration.tar_at_far_01pct` | TAR at 0.1% FAR on seed 42 under ALL protocol |
+| `\EasyOnlyEER` | $2.85\%$ | `verification.easy_only.eer_percent` | Secondary benchmark EER averaged across seeds 42, 123, 456 under EASY protocol |
+| `\EasyOnlyEERStd` | $0.23\%$ | `verification.easy_only.eer_std` | Standard deviation across 3 seeds under EASY protocol |
+| `\OperatingThresholdTau` | $0.8910$ | `verification.all_alteration.tau_threshold` | Operating threshold selected at crossover for ALL protocol |
+| `\NominalTestFAR` | $10.17\%$ | `verification.nominal_test_far` | Empirical test FAR at operating threshold $\tau = 0.8910$ |
+| `\NominalTestFRR` | $10.17\%$ | `verification.nominal_test_frr` | Empirical test FRR at operating threshold $\tau = 0.8910$ |
 | `\ROPIsometryMaxDiff` | $1.79 \times 10^{-7}$ | `verification.rop_isometry_max_diff` | Max $|s_{\text{ROP}} - s_{\text{plaintext}}|$ confirming isometric inner-product preservation |
-| `\GenuineMean` | $0.979$ | `verification.schemes.rop.stolen_key.genuine_mean` | Genuine pair cosine similarity mean ($\sigma = 0.022$) |
-| `\StolenImpostorMean` | $0.797$ | `verification.schemes.rop.stolen_key.impostor_mean` | Stolen-key impostor cosine similarity mean ($\sigma = 0.081$) |
-| `\DPrimeStolen` | $3.05$ | `verification.schemes.rop.stolen_key.d_prime` | Decidability index under stolen-key condition |
-| `\TARAtFAROnePct` | $94.58\%$ | `verification.schemes.rop.stolen_key.TAR_at_FAR_1pct` | True Accept Rate at 1.0% False Accept Rate |
-| `\TARAtFARZeroOnePct` | $79.46\%$ | `verification.schemes.rop.stolen_key.TAR_at_FAR_01pct` | True Accept Rate at 0.1% False Accept Rate |
-| `\LegitImpostorMean` | $-0.001$ | `verification.schemes.rop.legitimate_key.impostor_mean` | Cross-user legitimate-key impostor mean ($\sigma = 0.062$) |
-| `\DPrimeLegit` | $20.92$ | `verification.schemes.rop.legitimate_key.d_prime` | Decidability index under legitimate-key token decorrelation |
-| `\LegitEER` | $0.00\%$ | `verification.schemes.rop.legitimate_key.EER_percent` | Legitimate-key EER (known token decorrelation artifact) |
-| `\CrossEntropyEER` | $7.19\%$ | Cross-entropy baseline | EER of unconstrained cross-entropy ResNet-18 ($\pm 0.09\%$) |
-| `\RankOneStolen` | $96.8\%$ | Identification test | 1:$N$ closed-set Rank-1 identification accuracy (stolen-key mode) |
-| `\RankOneLegit` | $98.9\%$ | Identification test | 1:$N$ closed-set Rank-1 identification accuracy (legitimate-key mode) |
-| `\PlaintextEER` | $2.89\%$ | `verification.schemes.plaintext.stolen_key.EER_percent` | Baseline ArcFace ResNet-18 stolen-key EER |
-| `\SignOnlyEER` | $2.89\%$ | `verification.schemes.sign_only.stolen_key.EER_percent` | Random bipolar sign flips stolen-key EER |
-| `\SignPermEER` | $2.89\%$ | `verification.schemes.sign_permutation.stolen_key.EER_percent` | Sign flips + permutation stolen-key EER |
-| `\FiLMOnlyEER` | $3.00\%$ | `verification.schemes.film_only.stolen_key.EER_percent` | Continuous FiLM modulation (no signs) stolen-key EER |
-| `\BipolarFiLMEER` | $2.95\%$ | `verification.schemes.bipolar_film.stolen_key.EER_percent` | Bipolar FiLM modulation stolen-key EER |
-| `\BioHashingEER` | $4.26\%$ | `verification.schemes.biohashing.stolen_key.EER_percent` | BioHashing ($M=256$) stolen-key EER |
-| `\IoMEER` | $5.46\%$ | `verification.schemes.iom.stolen_key.EER_percent` | Index-of-Max ($K=64, M=8$) stolen-key EER |
+| `\PlaintextEER` | $9.90\%$ | `verification.multi_seed_by_scheme.plaintext.mean` | Plaintext ArcFace stolen-key EER under ALL protocol |
+| `\SignOnlyEER` | $9.90\%$ | `verification.multi_seed_by_scheme.sign_only.mean` | Random bipolar sign flips stolen-key EER under ALL protocol |
+| `\SignPermEER` | $9.90\%$ | `verification.multi_seed_by_scheme.sign_permutation.mean` | Sign flips + permutation stolen-key EER under ALL protocol |
+| `\FiLMOnlyEER` | $10.00\%$ | `verification.multi_seed_by_scheme.film_only.mean` | Continuous FiLM modulation stolen-key EER under ALL protocol |
+| `\BipolarFiLMEER` | $9.90\%$ | `verification.multi_seed_by_scheme.bipolar_film.mean` | Bipolar FiLM modulation stolen-key EER under ALL protocol |
+| `\BioHashingEER` | $12.40\%$ | `verification.multi_seed_by_scheme.biohashing.mean` | BioHashing ($M=256$) stolen-key EER under ALL protocol |
+| `\IoMEER` | $14.05\%$ | `verification.multi_seed_by_scheme.iom.mean` | Index-of-Max ($K=64, M=8$) stolen-key EER under ALL protocol |
+| `\CrossEntropyEER` | $7.19\%$ | Cross-entropy baseline | EER of unconstrained cross-entropy ResNet-18 ($\pm 0.11\%$) |
+| `\RankOneStolen` | $66.6\%$ | Identification test | 1:$N$ closed-set Rank-1 identification accuracy on test split |
 
 ---
 
