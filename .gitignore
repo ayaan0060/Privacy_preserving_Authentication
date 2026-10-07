@@ -11,3 +11,9 @@ __pycache__/
 *.toc
 *.synctex.gz
 *.xdv
+
+# Excluded paper files
+Research.tex
+Research.pdf
+paper.tex
+paper.pdf
