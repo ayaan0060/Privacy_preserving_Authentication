@@ -83,7 +83,7 @@ def plot_roc_and_det(m):
 
     ax_roc.set_xscale('log')
     ax_roc.set_xlim(1e-4, 1.0)
-    ax_roc.set_ylim(0.85, 1.005)
+    ax_roc.set_ylim(0.40, 1.02)
     ax_roc.set_xlabel('False Accept Rate (FAR, log scale)')
     ax_roc.set_ylabel('True Accept Rate (TAR)')
     ax_roc.set_title('ROC Curves (SOCOFing Benchmark)')
@@ -111,13 +111,17 @@ def plot_roc_and_det(m):
 
 def plot_score_distributions(m):
     print("Generating score_distributions.pdf from results/final/...")
-    rop_s = np.load(FINAL_DIR / "rop_stolen_key_scores.npz")
+    rop_s_path = RAW_DIR / "rop_protoall_seed42_scores.npz"
+    if rop_s_path.exists():
+        rop_s = np.load(rop_s_path)
+    else:
+        rop_s = np.load(FINAL_DIR / "rop_stolen_key_scores.npz")
     rop_l = np.load(FINAL_DIR / "rop_legitimate_key_scores.npz")
 
     gen = rop_s['genuine']
     imp_stolen = rop_s['impostor']
     imp_legit = rop_l['impostor']
-    tau = m['verification']['tau_threshold']
+    tau = m['verification'].get('all_alteration', {}).get('tau_threshold', m['verification']['tau_threshold'])
 
     fig, ax = plt.subplots(figsize=(3.45, 2.7))
     bins = np.linspace(-0.3, 1.02, 120)

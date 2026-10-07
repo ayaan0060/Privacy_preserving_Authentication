@@ -2,10 +2,12 @@
 \toprule
 \textbf{Framework} & \textbf{Modality} & \textbf{Dataset} & \textbf{Cancelable Layer} & \textbf{HE Scheme} & \textbf{EER (\%)} & \textbf{Server Time} \\
 \midrule
-Teoh et al.~\cite{teoh2004biohashing} & Fingerprint & FVC2002 & BioHashing & None & 3.90\% & --- \\
-Jin et al.~\cite{jin2018ranking} & Fingerprint & FVC2002 & IoM Hashing & None & 4.80\% & --- \\
+Teoh et al.~\cite{teoh2004biohashing} & Fingerprint & FVC2002 & BioHashing & None & ---$^\dagger$ & --- \\
+Jin et al.~\cite{jin2018ranking} & Fingerprint & FVC2002 & IoM Hashing & None & ---$^\dagger$ & --- \\
 Boddeti~\cite{boddeti2018secure} & Face & LFW & None & BFV (Integer) & 2.20\% & 1{,}240\,ms \\
-HERS~\cite{engelsma2022hers} & Face & LFW & None & BGV (Integer) & 1.90\% & 4{,}100\,ms \\
-\textbf{Proposed Framework} & \textbf{Fingerprint} & \textbf{SOCOFing} & \textbf{Yes (ROP)} & \textbf{CKKS (Approx)} & \textbf{2.89\%} & \textbf{13.29\,ms} \\
+HERS~\cite{engelsma2022hers} & Face & MegaFace+FaceScrub & None & BFV (Integer) & 1.90\% & 4{,}100\,ms \\
+\textbf{Proposed Framework}$^*$ & \textbf{Fingerprint} & \textbf{SOCOFing} & \textbf{Yes (ROP)} & \textbf{CKKS (Approx)} & \textbf{9.90\%} & \textbf{13.36\,ms} \\
 \bottomrule
+\multicolumn{7}{l}{\footnotesize $^*$Evaluated on SOCOFing under the ALL synthetic alteration protocol; not directly comparable by rank to FVC/LFW.} \\
+\multicolumn{7}{l}{\footnotesize $^\dagger$Reported in original publications on FVC2002; not independently replicated on SOCOFing in this work.}
 \end{tabular}

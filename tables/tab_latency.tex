@@ -2,15 +2,15 @@
 \toprule
 \textbf{Pipeline Processing Stage} & \textbf{Median (ms)} & \textbf{p95 (ms)} & \textbf{p99 (ms)} \\
 \midrule
-Client: CLAHE Preprocessing & 0.31\,ms & 0.38\,ms & 0.45\,ms \\
-Client: ResNet-18 Encoder Inference & 6.69\,ms & 6.99\,ms & 7.95\,ms \\
-Client: Keystore Retrieval & 0.05\,ms & 0.05\,ms & 0.06\,ms \\
-Client: FiLM Modulation + ROP & 0.19\,ms & 0.27\,ms & 0.36\,ms \\
-Client: CKKS Vector Encryption ($\text{Enc}(\mathbf{t})$) & 3.85\,ms & 3.96\,ms & 4.50\,ms \\
-Server: Homomorphic Dot Product ($\text{Enc}(\langle \mathbf{t}_1, \mathbf{t}_2 \rangle)$) & 13.29\,ms & 13.80\,ms & 15.44\,ms \\
-Client: Scalar Decryption \& 1-Bit Attestation & 0.78\,ms & 0.82\,ms & 0.92\,ms \\
-Client: Decision + Signing & 0.10\,ms & 0.10\,ms & 0.10\,ms \\
+Client: CLAHE Preprocessing & 0.10\,ms & 0.14\,ms & 0.18\,ms \\
+Client: ResNet-18 Encoder Inference & 8.60\,ms & 8.77\,ms & 9.39\,ms \\
+Client: Keystore Retrieval & 0.22\,ms & 0.25\,ms & 0.28\,ms \\
+Client: FiLM Modulation + ROP & 0.03\,ms & 0.04\,ms & 0.05\,ms \\
+Client: CKKS Vector Encryption ($\text{Enc}(\mathbf{t})$) & 3.91\,ms & 3.98\,ms & 4.19\,ms \\
+Server: Homomorphic Dot Product ($\text{Enc}(\langle \mathbf{t}_1, \mathbf{t}_2 \rangle)$) & 13.36\,ms & 13.49\,ms & 14.63\,ms \\
+Client: Scalar Decryption \& 1-Bit Attestation & 0.80\,ms & 0.83\,ms & 0.92\,ms \\
+Client: Decision + Signing & 0.17\,ms & 0.19\,ms & 0.20\,ms \\
 \midrule
-\textbf{Directly Measured End-to-End} & \textbf{25.11\,ms} & \textbf{26.28\,ms} & \textbf{29.81\,ms} \\
+\textbf{Directly Measured End-to-End} & \textbf{27.19\,ms} & \textbf{27.51\,ms} & \textbf{29.57\,ms} \\
 \bottomrule
 \end{tabular}

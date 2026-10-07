@@ -1,0 +1,74 @@
+.venv/bin/python3 scripts/acceptance.py
+======================================================================
+RUNNING STAGE 0 ACCEPTANCE TESTS
+======================================================================
+
+--- [Stage 0.0: Compile paper.tex] ---
+[PASS] COMPILE: tectonic successfully built paper.pdf
+
+--- [Stage 0.1: Forbidden Strings in Compiled PDF] ---
+[FAIL] FORBIDDEN_AUC_1: Forbidden string: 'AUC of 1.0000' or 'AUC = 1.0000' found 1 times: 'ate\nlinking with an AUC of 1.0000. Continuous FiLM\nmo'
+[FAIL] FORBIDDEN_COMPROMISED: Forbidden string: 'completely compromised' or 'completely vulnerable' found 2 times: 'ly trans-\nforms are completely compromised by multiset sort-\ni', 'nsform t = s ⊙ e is completely vulnerable to\nmagnitude linkag'
+[FAIL] FORBIDDEN_50_MBPS: Forbidden string: '50 Mbit/s downlink' found 1 times: ' (15 Mbit/s uplink, 50 Mbit/s downlink,\n50 ms base RTT): T'
+[FAIL] FORBIDDEN_50_MS_RTT: Forbidden string: '50 ms base RTT' found 1 times: '50 Mbit/s downlink,\n50 ms base RTT): Transmitting the '
+[FAIL] FORBIDDEN_IJBC: Forbidden string: 'IJB-C' found 1 times: 'N\ngallery search on IJB-C. These comparisons '
+[FAIL] FORBIDDEN_BGV: Forbidden string: 'BGV' found 1 times: ' [ 7] Face LFW None BGV (Integer) 1.90% 4,1'
+[FAIL] FORBIDDEN_50_60_PCT: Forbidden string: '50.60%' found 1 times: 'while\nCosine EER is 50.60%, Absolute-V alue EE'
+[FAIL] FORBIDDEN_99_8_PCT: Forbidden string: '99.8%' found 1 times: ' Rank-1 accuracy to 99.8%.\nNote that legitima'
+[FAIL] FORBIDDEN_NO_ACCESS_SERVER: Forbidden string: 'without gaining access to server database' found 1 times: 'aluates the outcome without\ngaining access to server database records.\nB. Adversa'
+[PASS] FORBIDDEN_5_ADVERSARIES: Forbidden string: 'five distinct adversary' not found in PDF
+[FAIL] FORBIDDEN_SIMD_ZERO: Forbidden string: 'SIMD register zero' found 1 times: 'mory management and SIMD\nregister zero-handling during pla'
+[PASS] FORBIDDEN_PROD_EVAL: Forbidden string: 'Production Evaluation' not found in PDF
+[FAIL] FORBIDDEN_EXPLICITLY: Forbidden string: 'explicitly' found 1 times: 'aphic\nsignature. We explicitly acknowledge that if'
+[PASS] FORBIDDEN_UNRESOLVED_REF: Forbidden string: '[?]' unresolved citation not found in PDF
+[PASS] FORBIDDEN_DOUBLE_QMARK: Forbidden string: '??' unresolved reference not found in PDF
+[FAIL] FORBIDDEN_THREE_SEEDS: Found 'three random seeds' in PDF without 3 trained encoders (2 matches)
+[PASS] NOT_MET_RESTRICTION: 'not met' appears strictly in TAR row (1 occurrences)
+
+--- [Stage 0.2: Required Text Content] ---
+[FAIL] REQUIRED_ALL_ALT_EER: All-alteration EER missing in abstract or Table II (metric_present=False, abstract=False, tab_spec=False)
+[FAIL] REQUIRED_NOMINAL_PAIR_BREAKDOWN: Sentence stating exactly which pairs nominal 10,000-pair benchmark uses (counts by alteration level) is missing
+
+--- [Stage 0.3: Numeric Consistency & Abstract Length] ---
+[PASS] ABSTRACT_WORD_COUNT: Abstract has 228 words (<= 250 limit)
+[PASS] MACRO_CONSISTENCY: 157 macros defined with zero duplicate collisions
+
+--- [Stage 0.4: Arithmetic Assertions] ---
+[PASS] LOAD_TEST_ARITHMETIC: Little's Law (<5% discrepancy) and X <= N/Z verified for all 5 load rows
+[FAIL] CELLULAR_4G_ARITHMETIC: Missing 4G metrics for arithmetic assertion (net=284.5, compute=0.0, total=307.88)
+
+--- [Stage 0.5: Code Assertions (FiLM)] ---
+[FAIL] FILM_CHECKPOINT_LOADING: FiLMGenerator instantiated without loading trained checkpoint at: ['run_all_experiments.py:152', 'run_all_experiments.py:416']
+[FAIL] FILM_CHECKPOINT_EXISTS: Trained FiLM checkpoint missing at exports/film_generator.pt
+
+======================================================================
+ACCEPTANCE TEST SUMMARY: 9 PASSED, 17 FAILED
+======================================================================
+  [✓] COMPILE
+  [✓] FORBIDDEN_5_ADVERSARIES
+  [✓] FORBIDDEN_PROD_EVAL
+  [✓] FORBIDDEN_UNRESOLVED_REF
+  [✓] FORBIDDEN_DOUBLE_QMARK
+  [✓] NOT_MET_RESTRICTION
+  [✓] ABSTRACT_WORD_COUNT
+  [✓] MACRO_CONSISTENCY
+  [✓] LOAD_TEST_ARITHMETIC
+  [✗] FORBIDDEN_AUC_1: Forbidden string: 'AUC of 1.0000' or 'AUC = 1.0000' found 1 times: 'ate\nlinking with an AUC of 1.0000. Continuous FiLM\nmo'
+  [✗] FORBIDDEN_COMPROMISED: Forbidden string: 'completely compromised' or 'completely vulnerable' found 2 times: 'ly trans-\nforms are completely compromised by multiset sort-\ni', 'nsform t = s ⊙ e is completely vulnerable to\nmagnitude linkag'
+  [✗] FORBIDDEN_50_MBPS: Forbidden string: '50 Mbit/s downlink' found 1 times: ' (15 Mbit/s uplink, 50 Mbit/s downlink,\n50 ms base RTT): T'
+  [✗] FORBIDDEN_50_MS_RTT: Forbidden string: '50 ms base RTT' found 1 times: '50 Mbit/s downlink,\n50 ms base RTT): Transmitting the '
+  [✗] FORBIDDEN_IJBC: Forbidden string: 'IJB-C' found 1 times: 'N\ngallery search on IJB-C. These comparisons '
+  [✗] FORBIDDEN_BGV: Forbidden string: 'BGV' found 1 times: ' [ 7] Face LFW None BGV (Integer) 1.90% 4,1'
+  [✗] FORBIDDEN_50_60_PCT: Forbidden string: '50.60%' found 1 times: 'while\nCosine EER is 50.60%, Absolute-V alue EE'
+  [✗] FORBIDDEN_99_8_PCT: Forbidden string: '99.8%' found 1 times: ' Rank-1 accuracy to 99.8%.\nNote that legitima'
+  [✗] FORBIDDEN_NO_ACCESS_SERVER: Forbidden string: 'without gaining access to server database' found 1 times: 'aluates the outcome without\ngaining access to server database records.\nB. Adversa'
+  [✗] FORBIDDEN_SIMD_ZERO: Forbidden string: 'SIMD register zero' found 1 times: 'mory management and SIMD\nregister zero-handling during pla'
+  [✗] FORBIDDEN_EXPLICITLY: Forbidden string: 'explicitly' found 1 times: 'aphic\nsignature. We explicitly acknowledge that if'
+  [✗] FORBIDDEN_THREE_SEEDS: Found 'three random seeds' in PDF without 3 trained encoders (2 matches)
+  [✗] REQUIRED_ALL_ALT_EER: All-alteration EER missing in abstract or Table II (metric_present=False, abstract=False, tab_spec=False)
+  [✗] REQUIRED_NOMINAL_PAIR_BREAKDOWN: Sentence stating exactly which pairs nominal 10,000-pair benchmark uses (counts by alteration level) is missing
+  [✗] CELLULAR_4G_ARITHMETIC: Missing 4G metrics for arithmetic assertion (net=284.5, compute=0.0, total=307.88)
+  [✗] FILM_CHECKPOINT_LOADING: FiLMGenerator instantiated without loading trained checkpoint at: ['run_all_experiments.py:152', 'run_all_experiments.py:416']
+  [✗] FILM_CHECKPOINT_EXISTS: Trained FiLM checkpoint missing at exports/film_generator.pt
+======================================================================
+make: *** [accept] Error 1

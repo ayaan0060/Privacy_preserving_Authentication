@@ -230,22 +230,38 @@ def create_signed_payload(
     timestamp: datetime,
     verified: bool,
 ) -> bytes:
-    """Create canonical payload for signing."""
+    """
+    Create canonical 1-bit attestation payload for ECDSA signing.
+
+    Per §IV-E of the paper, the server receives ONLY a 1-bit boolean decision.
+    The similarity score is NEVER included in the server-bound signed payload —
+    doing so would expose the continuous score and enable the Li-Micciancio
+    key-recovery oracle attack that this attestation protocol is designed to prevent.
+
+    Payload structure: H(d ‖ n_s ‖ v)
+      d   = 1-byte boolean decision (0x01 = accept, 0x00 = reject)
+      n_s = 32-byte server nonce
+      v   = 4-byte big-endian key version
+
+    The similarity_score parameter is retained in the function signature for
+    internal audit logging purposes only — it is NOT included in the payload
+    that is transmitted to or verifiable by the server.
+    """
+    import hashlib
     import struct
-    payload = b''
+    # Normalise nonce to exactly 32 bytes
     if len(nonce) < 32:
         nonce = nonce.ljust(32, b'\x00')
     elif len(nonce) > 32:
         nonce = nonce[:32]
-    payload += nonce
-    payload += struct.pack('>d', similarity_score)
-    payload += struct.pack('>I', key_version)
-    device_id_bytes = device_id.encode('utf-8')
-    payload += struct.pack('>H', len(device_id_bytes))
-    payload += device_id_bytes
-    payload += timestamp.isoformat().encode('utf-8')
-    payload += struct.pack('>B', 1 if verified else 0)
-    return payload
+    # Build the pre-image: decision bit ‖ nonce ‖ key version
+    raw = (
+        struct.pack('>B', 1 if verified else 0)
+        + nonce
+        + struct.pack('>I', key_version)
+    )
+    # Return the hash — the similarity float is intentionally excluded
+    return hashlib.sha256(raw).digest()
 
 
 def verify_signature(

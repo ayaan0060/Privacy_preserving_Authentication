@@ -1,0 +1,40 @@
+======================================================================
+RUNNING TEXT-VS-DATA CONSISTENCY CHECKER (STAGE 1)
+======================================================================
+
+--- [CHECK_A_NUMERIC_LITERALS] Check A: Numeric literals in paper.tex & consistency with metrics.json ---
+[PASS] CHECK_A_NUMERIC_LITERALS
+
+--- [CHECK_B_TABLE_X_WEIGHTED_FRR] Check B: Section V-J Weighted FRR equals ALL protocol FRR@tau ---
+[PASS] CHECK_B_TABLE_X_WEIGHTED_FRR
+
+--- [CHECK_C_SIGNIFICANCE_WORDING] Check C: Statistical significance wording (p < 0.05 cannot be 'not significant') ---
+[PASS] CHECK_C_SIGNIFICANCE_WORDING
+
+--- [CHECK_D_TABLE_PROTOCOLS] Check D: No protocol mixing in table blocks ---
+[PASS] CHECK_D_TABLE_PROTOCOLS
+
+--- [CHECK_E_ISOMETRY_CONSISTENCY] Check E: Plaintext and ROP isometry consistency ---
+[PASS] CHECK_E_ISOMETRY_CONSISTENCY
+
+--- [CHECK_F_LOAD_TEST_SERVICE_TIME] Check F: Table VIII Load test service time S != Mean R and Little's Law ---
+[PASS] CHECK_F_LOAD_TEST_SERVICE_TIME
+
+--- [CHECK_G_TVLA_CONSISTENCY] Check G: TVLA timing test consistency ---
+[PASS] CHECK_G_TVLA_CONSISTENCY
+
+--- [CHECK_H_OPERATING_POINT_LABELING] Check H: Operating point labeling (val-transfer vs test-EER) ---
+[PASS] CHECK_H_OPERATING_POINT_LABELING
+
+======================================================================
+CONSISTENCY CHECK SUMMARY: 8 PASSED, 0 FAILED
+======================================================================
+  [✓] CHECK_A_NUMERIC_LITERALS: PASS (0 issues)
+  [✓] CHECK_B_TABLE_X_WEIGHTED_FRR: PASS (0 issues)
+  [✓] CHECK_C_SIGNIFICANCE_WORDING: PASS (0 issues)
+  [✓] CHECK_D_TABLE_PROTOCOLS: PASS (0 issues)
+  [✓] CHECK_E_ISOMETRY_CONSISTENCY: PASS (0 issues)
+  [✓] CHECK_F_LOAD_TEST_SERVICE_TIME: PASS (0 issues)
+  [✓] CHECK_G_TVLA_CONSISTENCY: PASS (0 issues)
+  [✓] CHECK_H_OPERATING_POINT_LABELING: PASS (0 issues)
+======================================================================

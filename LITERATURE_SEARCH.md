@@ -46,7 +46,7 @@ The proposed pipeline is compared with representative prior art below:
 | Reference | Modality / Benchmark | Task | Protection Mechanism | Crypto Primitive | Accuracy (EER) | Server Latency | Score Privacy | Unlinkability Evaluation |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Boddeti (2018)**~\cite{boddeti2018secure} | Face (LFW) | 1:1 | None (Raw features) | BFV (SEAL) | $2.20\%$ | $1{,}240$\,ms | Exposed | Not applicable |
-| **Engelsma et al. (2022)**~\cite{engelsma2022hers} | Face (IJB-C) | 1:$N$ | None (Raw features) | BFV (SEAL) | $1.90\%$ | $4{,}100$\,ms | Exposed | Not applicable |
+| **Engelsma et al. (2022)**~\cite{engelsma2022hers} | Face (MegaFace+FaceScrub) | 1:$N$ | None (Raw features) | BFV (SEAL) | $1.90\%$ | $4{,}100$\,ms | Exposed | Not applicable |
 | **Jin et al. (2018)**~\cite{jin2018ranking} | Fingerprint (FVC2002) | 1:1 | Index-of-Max Hashing | None (Plaintext) | $3.90\%$ | $< 1$\,ms | Exposed | Partial (no null calibration) |
 | **Proposed System** | **Fingerprint (SOCOFing)** | **1:1** | **Random Orthogonal Proj** | **CKKS (TenSEAL)** | **$2.89\%$ (Stolen)** / **$0.00\%$ (Legit)** | **$13.29$\,ms** | **Concealed (1-bit attestation)** | **ISO/IEC 24745 with Permutation Null** |
 

@@ -1,0 +1,14 @@
+{
+  "protocol": "ALL",
+  "n_trials": 1000,
+  "n_genuine": 500,
+  "n_impostor": 500,
+  "plaintext_eer": 8.6,
+  "ckks_eer": 8.6,
+  "delta_eer": 0.0,
+  "ci_95": [
+    0.0,
+    0.0
+  ],
+  "max_ckks_error": 1.9065116511063351e-06
+}

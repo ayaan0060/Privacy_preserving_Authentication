@@ -1,16 +1,25 @@
-\begin{tabular}{lccccccc}
+\begin{tabular}{lcccccccc}
 \toprule
-& \multicolumn{5}{c}{\textbf{Stolen-Key Matching Mode}} & \multicolumn{2}{c}{\textbf{Legitimate-Key Matching Mode}} \\
-\cmidrule(lr){2-6} \cmidrule(lr){7-8}
-\textbf{Protection Scheme} & \textbf{EER (\%)} & \textbf{TAR@1\%} & \textbf{TAR@0.1\%} & \textbf{Rank-1} & \textbf{$d'$} & \textbf{EER (\%)} & \textbf{$d'$} \\
+& \multicolumn{6}{c}{\textbf{Stolen-Key Matching Mode}} & \multicolumn{2}{c}{\textbf{Legitimate-Key Matching Mode}} \\
+\cmidrule(lr){2-7} \cmidrule(lr){8-9}
+\textbf{Protection Scheme} & \textbf{Single-Seed (Seed 42)} & \textbf{Mean $\pm$ Std (3 Seeds)} & \textbf{TAR@1\%} & \textbf{TAR@0.1\%} & \textbf{Rank-1} & \textbf{$d'$} & \textbf{EER (\%)} & \textbf{$d'$} \\
 \midrule
-Plaintext ArcFace ResNet-18 & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 2.89\% & 3.05 \\
-\textbf{Random Orthogonal Projection (Adopted)} & \textbf{2.89\%} & 94.58\% & 79.46\% & \textbf{69.22\%} & 3.05 & \textbf{0.00\%} & 20.92 \\
-Random Bipolar Sign Flips & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 0.00\% & 15.28 \\
-Sign Flips + Permutation & 2.89\% & 94.58\% & 79.46\% & 69.22\% & 3.05 & 0.00\% & 20.91 \\
-FiLM Modulation (No Signs) & 3.00\% & 94.74\% & 76.60\% & 69.36\% & 3.01 & 0.40\% & 4.64 \\
-Bipolar FiLM Modulation & 2.95\% & 94.50\% & 77.04\% & 69.36\% & 3.02 & 0.00\% & 15.50 \\
-BioHashing ($M=256$) & 4.26\% & 88.26\% & 62.04\% & 54.37\% & 3.47 & 0.00\% & 13.74 \\
-Index-of-Max Hashing ($K=64, M=8$) & 5.46\% & 82.08\% & 58.26\% & 46.29\% & 3.34 & 0.00\% & 11.53 \\
+\multicolumn{9}{l}{\textbf{ALL Alterations Protocol (Headline, $N=14{,}654$ Pairs: $7{,}327$ Genuine, $7{,}327$ Impostor)}} \\
+\midrule
+Plaintext ArcFace ResNet-18 & 10.17\% & 9.90 $\pm$ 0.24\% & 71.72\% & 54.02\% & 66.64\% & 2.41 & 10.17\% & 2.41 \\
+\textbf{Random Orthogonal Projection (Adopted)} & \textbf{10.17\%} & 9.90 $\pm$ 0.24\% & 71.72\% & 54.02\% & \textbf{66.64\%} & 2.41 & \textbf{0.00\%} & 17.72 \\
+Random Bipolar Sign Flips & 10.17\% & 9.90 $\pm$ 0.24\% & 71.72\% & 54.02\% & 66.64\% & 2.41 & 0.00\% & 17.72 \\
+Sign Flips + Permutation & 10.17\% & 9.90 $\pm$ 0.24\% & 71.72\% & 54.02\% & 66.64\% & 2.41 & 0.00\% & 17.72 \\
+FiLM Modulation (No Signs) & 10.23\% & 10.00 $\pm$ 0.21\% & 71.82\% & 52.03\% & 66.18\% & 2.39 & 0.00\% & 17.72 \\
+Bipolar FiLM Modulation & 10.10\% & 9.90 $\pm$ 0.19\% & 71.18\% & 52.85\% & 66.25\% & 2.39 & 0.00\% & 17.72 \\
+BioHashing ($M=256$) & 12.46\% & 12.40 $\pm$ 0.26\% & 64.57\% & 46.77\% & 53.02\% & 2.34 & 0.00\% & 17.72 \\
+Index-of-Max Hashing ($K=64, M=8$) & 14.30\% & 14.05 $\pm$ 0.22\% & 60.68\% & 40.23\% & 43.32\% & 2.21 & 0.00\% & 17.72 \\
+\midrule
+\multicolumn{9}{l}{\textbf{EASY Alterations Protocol (Secondary, $N=5{,}374$ Pairs: $2{,}687$ Genuine, $2{,}687$ Impostor)}} \\
+\midrule
+Plaintext ArcFace ResNet-18 & 2.79\% & 2.84 $\pm$ 0.23\% & 95.20\% & 85.93\% & 92.85\% & 3.18 & 2.79\% & 3.18 \\
+\textbf{Random Orthogonal Projection (Adopted)} & \textbf{2.79\%} & 2.84 $\pm$ 0.23\% & 95.20\% & 85.93\% & \textbf{92.85\%} & 3.18 & \textbf{0.00\%} & 20.92 \\
+Cross-Entropy ResNet-18 Baseline & 7.19\% & 7.19 $\pm$ 0.11\% & 58.70\% & 21.42\% & ---$^\dagger$ & 2.54 & 7.19\% & 2.54 \\
 \bottomrule
+\multicolumn{9}{l}{\footnotesize $^\dagger$Cross-Entropy baseline evaluated on EASY nominal pairs only; 1:N gallery checkpoints unrun on ALL alterations.}
 \end{tabular}

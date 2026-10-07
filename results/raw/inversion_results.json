@@ -72312,5 +72312,11 @@
       0.0
     ],
     "d_prime": 1.4936
+  },
+  "film_known_key": {
+    "mean_error": 6.483352254519803e-08,
+    "max_error": 1.436930392647475e-07,
+    "exact_inversion": true,
+    "n_samples": 500
   }
 }

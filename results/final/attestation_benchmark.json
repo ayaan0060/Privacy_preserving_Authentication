@@ -1,0 +1,12 @@
+{
+  "accept_sign_verify": "PASS",
+  "reject_sign_verify": "PASS",
+  "tampered_payload_rejected": "PASS",
+  "wrong_public_key_rejected": "PASS",
+  "nonce_replay_blocked": "PASS",
+  "version_binding": "PASS",
+  "latency_1000_cycles_ms": 147.05,
+  "latency_per_cycle_ms": 0.1471,
+  "score_concealment": "PASS",
+  "overall": "PASS"
+}

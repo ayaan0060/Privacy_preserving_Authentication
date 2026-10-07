@@ -1,0 +1,128 @@
+======================================================================
+RUNNING STAGE 0 ACCEPTANCE TESTS
+======================================================================
+
+--- [Stage 0.0: Compile paper.tex] ---
+[PASS] COMPILE: tectonic successfully built paper.pdf
+
+--- [Stage 0.1: Forbidden Strings in Compiled PDF] ---
+[PASS] FORBIDDEN_AUC_1: Forbidden string: 'AUC of 1.0000' or 'AUC = 1.0000' not found in PDF
+[PASS] FORBIDDEN_COMPROMISED: Forbidden string: 'completely compromised' or 'completely vulnerable' not found in PDF
+[PASS] FORBIDDEN_50_MBPS: Forbidden string: '50 Mbit/s downlink' not found in PDF
+[PASS] FORBIDDEN_50_MS_RTT: Forbidden string: '50 ms base RTT' not found in PDF
+[PASS] FORBIDDEN_IJBC: Forbidden string: 'IJB-C' not found in PDF
+[PASS] FORBIDDEN_BGV: Forbidden string: 'BGV' not found in PDF
+[PASS] FORBIDDEN_50_60_PCT: Forbidden string: '50.60%' not found in PDF
+[PASS] FORBIDDEN_99_8_PCT: Forbidden string: '99.8%' not found in PDF
+[PASS] FORBIDDEN_NO_ACCESS_SERVER: Forbidden string: 'without gaining access to server database' not found in PDF
+[PASS] FORBIDDEN_5_ADVERSARIES: Forbidden string: 'five distinct adversary' not found in PDF
+[PASS] FORBIDDEN_SIMD_ZERO: Forbidden string: 'SIMD register zero' not found in PDF
+[PASS] FORBIDDEN_PROD_EVAL: Forbidden string: 'Production Evaluation' not found in PDF
+[PASS] FORBIDDEN_EXPLICITLY: Forbidden string: 'explicitly' not found in PDF
+[PASS] FORBIDDEN_UNRESOLVED_REF: Forbidden string: '[?]' unresolved citation not found in PDF
+[PASS] FORBIDDEN_DOUBLE_QMARK: Forbidden string: '??' unresolved reference not found in PDF
+[PASS] FORBIDDEN_THREE_SEEDS: 'three random seeds' not claimed without 3 trained encoders
+[PASS] NOT_MET_RESTRICTION: 'not met' appears strictly in TAR row (0 occurrences)
+[PASS] FORBIDDEN_DOUBLE_PERCENT: Forbidden string: '%%' (double percent sign in PDF text) not found in PDF
+[PASS] FORBIDDEN_DESIGN_TARGET: Forbidden string: 'Design Target' (column removed in Stage 4) not found in PDF
+[PASS] FORBIDDEN_STRESS_TEST_FRAMING: Forbidden string: 'stress test' (framing removed in Stage 5b) not found in PDF
+[PASS] FORBIDDEN_DEPLOYMENT_FEASIBILITY: Forbidden string: 'Deployment Feasibility' (renamed in Stage 5d) not found in PDF
+[PASS] FORBIDDEN_GITHUB_URL: Forbidden string: 'github' (repository reference removed per Stage 5g) not found in PDF
+[PASS] FORBIDDEN_REPOSITORY_WORD: Forbidden string: 'repository' (repository reference removed per Stage 5g) not found in PDF
+[PASS] FORBIDDEN_OPEN_SOURCE_RELEASE: Forbidden string: 'open-source release' not found in PDF
+[PASS] FORBIDDEN_EER_CONTRADICTION: Forbidden string: sentence pairing headline EER with easy EER for ROP/plaintext not found in PDF
+[PASS] PROTOCOL_RESULTS_EXIST: Protocol results present (ALL ROP EER=9.90%)
+[PASS] PROTOCOL_PAIR_CSVS: pairs_all.csv and pairs_easy.csv present in results/final/
+[PASS] LEARNED_ATTACKER_DISTINCT: Learned attacker AUC is distinct from simple attacks for all 9 schemes
+[PASS] TABLE_III_SINGLE_SEED_BOUNDS: All Table III single-seed values are within mean +/- 3 std
+
+--- [Stage 0.2: Required Text Content] ---
+[PASS] REQUIRED_ALL_ALT_EER: All-alteration EER is reported in abstract and Table II
+[PASS] REQUIRED_NOMINAL_PAIR_BREAKDOWN: Nominal 10,000-pair benchmark discloses pair counts by alteration level
+
+--- [Stage 0.3: Numeric Consistency & Abstract Length] ---
+[PASS] ABSTRACT_WORD_COUNT: Abstract has 233 words (<= 250 limit)
+[PASS] MACRO_CONSISTENCY: 195 macros defined with zero duplicate collisions
+
+--- [Stage 0.4: Arithmetic Assertions] ---
+[PASS] LOAD_TEST_ARITHMETIC: Little's Law (<5% discrepancy) and X <= N/Z verified for all 6 load rows
+[PASS] CELLULAR_4G_ARITHMETIC: 4G total 309.55 ms matches net (284.44 ms) + compute (25.11 ms)
+
+--- [Stage 0.5: Code Assertions (FiLM)] ---
+[PASS] FILM_CHECKPOINT_LOADING: All FiLMGenerator instantiations load trained checkpoints
+[PASS] FILM_CHECKPOINT_EXISTS: Trained FiLM checkpoint present at exports/film_generator.pt
+
+--- [Stage 0.6: Semantic Provenance & Geometric Quality] ---
+[PASS] ROP_ISOMETRY: ROP preserves inner products with max deviation 1.79e-07 < 1e-5
+[PASS] VAL_TAU_PROVENANCE: Validation tau (0.8943) matches between metrics.json and protocol_results.json
+[PASS] ROC_FIGURE_LIMITS: ROC curve y-axis properly avoids clipping TAR curves (starts <= 0.40)
+======================================================================
+RUNNING PROVENANCE AND INTEGRITY AUDIT
+======================================================================
+
+Audit completed: 126 artifacts verified, 0 failures.
+  [✓] VERIFIED: results/final/rop_stolen_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/metrics.json (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/pairs_all.csv (by scripts/run_protocol_experiments.py)
+  [✓] VERIFIED: results/final/iom_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/rop_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/sign_only_stolen_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/sign_permutation_stolen_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/macros.tex (by scripts/make_macros.py)
+  [✓] VERIFIED: results/final/sign_permutation_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/pairs_easy.csv (by scripts/run_protocol_experiments.py)
+  [✓] VERIFIED: results/final/film_only_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/protocol_results.json (by scripts/run_protocol_experiments.py)
+  [✓] VERIFIED: results/final/sign_only_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/plaintext_legitimate_key_scores.npz (by scripts/run_all_experiments.py)
+  [✓] VERIFIED: results/final/plaintext_stolen_key_scores.npz (by scripts/run_all_experiments.py)
+  ... and 111 more verified files.
+======================================================================
+[PASS] MANIFEST_PROVENANCE_AUDIT: Manifest audit verified all raw and final artifacts
+
+======================================================================
+ACCEPTANCE TEST SUMMARY: 42 PASSED, 0 FAILED
+======================================================================
+  [✓] COMPILE
+  [✓] FORBIDDEN_AUC_1
+  [✓] FORBIDDEN_COMPROMISED
+  [✓] FORBIDDEN_50_MBPS
+  [✓] FORBIDDEN_50_MS_RTT
+  [✓] FORBIDDEN_IJBC
+  [✓] FORBIDDEN_BGV
+  [✓] FORBIDDEN_50_60_PCT
+  [✓] FORBIDDEN_99_8_PCT
+  [✓] FORBIDDEN_NO_ACCESS_SERVER
+  [✓] FORBIDDEN_5_ADVERSARIES
+  [✓] FORBIDDEN_SIMD_ZERO
+  [✓] FORBIDDEN_PROD_EVAL
+  [✓] FORBIDDEN_EXPLICITLY
+  [✓] FORBIDDEN_UNRESOLVED_REF
+  [✓] FORBIDDEN_DOUBLE_QMARK
+  [✓] FORBIDDEN_THREE_SEEDS
+  [✓] NOT_MET_RESTRICTION
+  [✓] FORBIDDEN_DOUBLE_PERCENT
+  [✓] FORBIDDEN_DESIGN_TARGET
+  [✓] FORBIDDEN_STRESS_TEST_FRAMING
+  [✓] FORBIDDEN_DEPLOYMENT_FEASIBILITY
+  [✓] FORBIDDEN_GITHUB_URL
+  [✓] FORBIDDEN_REPOSITORY_WORD
+  [✓] FORBIDDEN_OPEN_SOURCE_RELEASE
+  [✓] FORBIDDEN_EER_CONTRADICTION
+  [✓] PROTOCOL_RESULTS_EXIST
+  [✓] PROTOCOL_PAIR_CSVS
+  [✓] LEARNED_ATTACKER_DISTINCT
+  [✓] TABLE_III_SINGLE_SEED_BOUNDS
+  [✓] REQUIRED_ALL_ALT_EER
+  [✓] REQUIRED_NOMINAL_PAIR_BREAKDOWN
+  [✓] ABSTRACT_WORD_COUNT
+  [✓] MACRO_CONSISTENCY
+  [✓] LOAD_TEST_ARITHMETIC
+  [✓] CELLULAR_4G_ARITHMETIC
+  [✓] FILM_CHECKPOINT_LOADING
+  [✓] FILM_CHECKPOINT_EXISTS
+  [✓] ROP_ISOMETRY
+  [✓] VAL_TAU_PROVENANCE
+  [✓] ROC_FIGURE_LIMITS
+  [✓] MANIFEST_PROVENANCE_AUDIT
+======================================================================

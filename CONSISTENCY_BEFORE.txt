@@ -1,0 +1,55 @@
+======================================================================
+RUNNING TEXT-VS-DATA CONSISTENCY CHECKER (STAGE 1)
+======================================================================
+
+--- [CHECK_A_NUMERIC_LITERALS] Check A: Numeric literals in paper.tex & consistency with metrics.json ---
+[PASS] CHECK_A_NUMERIC_LITERALS
+
+--- [CHECK_B_TABLE_X_WEIGHTED_FRR] Check B: Section V-J Weighted FRR equals ALL protocol FRR@tau ---
+[FAIL] CHECK_B_TABLE_X_WEIGHTED_FRR:
+  - Sec. V-J states weighted FRR is 22.25%, but ALL-protocol FRR at tau is 2.9% (discrepancy of 19.35%).
+
+--- [CHECK_C_SIGNIFICANCE_WORDING] Check C: Statistical significance wording (p < 0.05 cannot be 'not significant') ---
+[FAIL] CHECK_C_SIGNIFICANCE_WORDING:
+  - Claimed 'no statistically significant' but p-value is 0.0013 (< 0.05)
+
+--- [CHECK_D_TABLE_PROTOCOLS] Check D: No protocol mixing in table blocks ---
+[FAIL] CHECK_D_TABLE_PROTOCOLS:
+  - Table III mixes EASY EER (2.89%) with ALL Mean+/-Std (9.90%) in a single unseparated block.
+
+--- [CHECK_E_ISOMETRY_CONSISTENCY] Check E: Plaintext and ROP isometry consistency ---
+[FAIL] CHECK_E_ISOMETRY_CONSISTENCY:
+  - Sentence compares Plaintext (2.89%) and ROP (9.90%) across protocols: '(a) ROC curves comparing the baseline Cross-Entropy
+encoder (EER 7.19%) against Plaintext ArcFace ( ...'
+  - Sentence compares Plaintext (2.89%) and ROP (9.90%) across protocols: '• Preimage Ambiguity Under Unknown Key: For can-
+didate preimages derived under randomly sampled key...'
+
+--- [CHECK_F_LOAD_TEST_SERVICE_TIME] Check F: Table VIII Load test service time S != Mean R and Little's Law ---
+[FAIL] CHECK_F_LOAD_TEST_SERVICE_TIME:
+  - Load tier N=10: service time S is missing from data (must be measured server-side service time).
+  - Load tier N=25: service time S is missing from data (must be measured server-side service time).
+  - Load tier N=50: service time S is missing from data (must be measured server-side service time).
+  - Load tier N=100: service time S is missing from data (must be measured server-side service time).
+  - Load tier N=200: service time S is missing from data (must be measured server-side service time).
+
+--- [CHECK_G_TVLA_CONSISTENCY] Check G: TVLA timing test consistency ---
+[FAIL] CHECK_G_TVLA_CONSISTENCY:
+  - TVLA trials in PDF text is 1000 (< 10,000 required by Stage 5)
+  - TVLA reports old 2,000-trial values (|t|=3.23, p=0.0013) instead of 10,000-trial evaluation.
+
+--- [CHECK_H_OPERATING_POINT_LABELING] Check H: Operating point labeling (val-transfer vs test-EER) ---
+[FAIL] CHECK_H_OPERATING_POINT_LABELING:
+  - tau = 0.8910 is described as 'validation' operating threshold/point, but it is the test-set EER point where FAR=FRR by construction.
+
+======================================================================
+CONSISTENCY CHECK SUMMARY: 1 PASSED, 7 FAILED
+======================================================================
+  [✓] CHECK_A_NUMERIC_LITERALS: PASS (0 issues)
+  [✗] CHECK_B_TABLE_X_WEIGHTED_FRR: FAIL (1 issues)
+  [✗] CHECK_C_SIGNIFICANCE_WORDING: FAIL (1 issues)
+  [✗] CHECK_D_TABLE_PROTOCOLS: FAIL (1 issues)
+  [✗] CHECK_E_ISOMETRY_CONSISTENCY: FAIL (2 issues)
+  [✗] CHECK_F_LOAD_TEST_SERVICE_TIME: FAIL (5 issues)
+  [✗] CHECK_G_TVLA_CONSISTENCY: FAIL (2 issues)
+  [✗] CHECK_H_OPERATING_POINT_LABELING: FAIL (1 issues)
+======================================================================
